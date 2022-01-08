@@ -28,5 +28,7 @@ namespace BLL.Interfaces
         Task ChangeUserRole(UserModel userModel);
 
         Task RemoveUserRole(UserModel userModel);
+
+        Task LogoutAsync();
     }
 }

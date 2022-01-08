@@ -182,6 +182,11 @@ namespace BLL.Services
             await _unitOfWork.UserManager.RemoveFromRoleAsync(user, userModel.Role);
         }
 
+        public async Task LogoutAsync()
+        {
+            await _unitOfWork.SignInManager.SignOutAsync();
+        }
+
         private async Task<AuthResponseModel> GenerateAuthResultAsync(User user)
         {
             var claims = new List<Claim>
