@@ -7,8 +7,6 @@ namespace BLL.Interfaces
 {
     public interface ILotService : ICrud<LotModel>, IDisposable
     {
-        ICollection<LotModel> GetAllWithDetails();
-
         LotModel GetWithDetailsById(int id);
 
         Task<List<LotModel>> GetLotsByUserIdAsync(string userId);

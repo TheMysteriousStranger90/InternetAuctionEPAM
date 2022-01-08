@@ -21,12 +21,12 @@ namespace BLL.Interfaces
 
         Task<AuthResponseModel> SignupAsync(SignupModel signup);
 
-        Task<AuthResponseModel> LoginAsync(LoginModel signup);
+        Task<AuthResponseModel> LoginAsync(LoginModel login);
 
         IEnumerable<UserModel> GetUsersRole(string userRole);
 
-        Task ChangeUserRole(UserModel user);
+        Task ChangeUserRole(UserModel userModel);
 
-        Task RemoveUserRole(UserModel user);
+        Task RemoveUserRole(UserModel userModel);
     }
 }

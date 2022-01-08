@@ -83,5 +83,13 @@ namespace DAL.Repositories
         {
             return await _context.Lots.Where(x => x.Status == false).AsNoTracking().ToListAsync();
         }
+
+        public async Task<List<Lot>> GetLotsByUserIdAsync(string userId)
+        {
+            return await _context.Lots.Where(x => x.UserId == userId)
+                .Include(x => x.User)
+                .Include(x => x.Trade)
+                .ToListAsync();
+        }
     }
 }

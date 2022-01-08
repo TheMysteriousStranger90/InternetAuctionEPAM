@@ -12,5 +12,7 @@ namespace DAL.Interfaces
         Task<Lot> GetByIdWithDetailsAsync(int id);
 
         Task<List<Lot>> GetSoldLotsAsync();
+
+        Task<List<Lot>> GetLotsByUserIdAsync(string userId);
     }
 }
