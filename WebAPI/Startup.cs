@@ -1,5 +1,7 @@
 using System;
+using AutoMapper;
 using BLL.Configure;
+using BLL.Mapping;
 using DAL.Context;
 using DAL.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -45,7 +47,10 @@ namespace WebAPI
                 opt.Lockout.MaxFailedAccessAttempts = 3;
             }).AddEntityFrameworkStores<InternetAuctionContext>().AddDefaultTokenProviders();
 
-            //Add mapping...
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutomapperProfile());
+            });
 
             services.AddAuthentication(opt =>
                 {
