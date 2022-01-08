@@ -1,10 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace DAL.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         ICategoryRepository CategoryRepository { get; }
 
