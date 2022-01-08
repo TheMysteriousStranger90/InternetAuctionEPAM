@@ -5,8 +5,10 @@ using BLL.Configure;
 using BLL.Interfaces;
 using BLL.Mapping;
 using BLL.Services;
+using DAL;
 using DAL.Context;
 using DAL.Entities;
+using DAL.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,6 +52,8 @@ namespace WebAPI
                 opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
                 opt.Lockout.MaxFailedAccessAttempts = 3;
             }).AddEntityFrameworkStores<InternetAuctionContext>().AddDefaultTokenProviders();
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
