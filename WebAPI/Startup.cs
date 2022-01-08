@@ -1,12 +1,16 @@
 using System;
+using System.Security.Principal;
 using AutoMapper;
 using BLL.Configure;
+using BLL.Interfaces;
 using BLL.Mapping;
+using BLL.Services;
 using DAL.Context;
 using DAL.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -72,10 +76,22 @@ namespace WebAPI
                     };
                 });
 
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ILotService, LotService>();
+            services.AddTransient<ITradeService, TradeService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddHttpContextAccessor();
+            services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
+
+            services.AddCors();
 
 
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
+            //services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

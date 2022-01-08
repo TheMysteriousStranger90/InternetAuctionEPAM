@@ -5,11 +5,11 @@ using BLL.Models;
 
 namespace BLL.Interfaces
 {
-    public interface IUserService<TModel> where TModel : class
+    public interface IUserService
     {
-        Task AddAsync(TModel model);
+        Task AddAsync(UserModel model);
 
-        Task UpdateAsync(TModel model);
+        Task UpdateAsync(UserModel model);
 
         Task DeleteByIdAsync(string modelId);
 

@@ -17,7 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace BLL.Services
 {
-    public class UserService : IUserService<UserModel>
+    public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
