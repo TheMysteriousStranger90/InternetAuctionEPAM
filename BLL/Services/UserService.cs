@@ -11,7 +11,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using BLL.Configuration;
-using BLL.Configure;
 using BLL.Models;
 using DAL.Entities;
 using Microsoft.Extensions.Options;
@@ -172,23 +171,6 @@ namespace BLL.Services
 
         public async Task<UserModel> LoginAsync(LoginModel login)
         {
-            /*
-            var user = _unitOfWork.UserManager.Users.SingleOrDefault(x => x.Email == login.Email);
-            if (user == null)
-                return new AuthResponseModel
-                {
-                    Errors = new[] { "User not exist" }
-                };
-
-            var verified = _unitOfWork.UserManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash, login.Password);
-            if (verified != PasswordVerificationResult.Success)
-                return new AuthResponseModel
-                {
-                    Errors = new[] { "Invalid Password" }
-                };
-            var result = await GenerateAuthResultAsync(user);
-            return result;
-            */
             var existingUser = await _unitOfWork.UserManager.FindByEmailAsync(login.Email);
 
             if (existingUser is null)
@@ -264,38 +246,6 @@ namespace BLL.Services
         {
             await _unitOfWork.SignInManager.SignOutAsync();
         }
-
-        /*
-        private async Task<AuthResponseModel> GenerateAuthResultAsync(User user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim("id", user.Id),
-                new Claim("name", user.FirstName),
-                new Claim("surname", user.LastName),
-                new Claim("email", user.Email),
-                new Claim("role", user.Role)
-            };
-
-            var now = DateTime.UtcNow;
-            var tokenOptions = new JwtSecurityToken(
-                issuer: AuthOptions.ISSUER,
-                audience: AuthOptions.AUDIENCE,
-                notBefore: now,
-                claims: claims,
-                expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-
-            var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-
-            return new AuthResponseModel
-            {
-                Success = true,
-                Token = tokenString
-            };
-        }
-*/
-
 
         private async Task<object> GenerateJwtToken(User user)
         {

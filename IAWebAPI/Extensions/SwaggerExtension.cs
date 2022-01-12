@@ -20,14 +20,6 @@ namespace Microsoft.Extensions.DependencyInjection
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer"
-
-/*
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey,
-                    Scheme = "Bearer"
-*/
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
@@ -46,26 +38,6 @@ namespace Microsoft.Extensions.DependencyInjection
                         },
                         new List<string>()
                     }
-
-
-                    /*
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            },
-                            Scheme = "oauth2",
-                            Name = "Bearer",
-                            In = ParameterLocation.Header,
-
-                        },
-                        new List<string>()
-                    }
-                    */
-
                 });
             });
 
