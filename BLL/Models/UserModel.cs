@@ -4,6 +4,9 @@ using BLL.Configuration;
 
 namespace BLL.Models
 {
+    /// <summary>
+    /// UserModel
+    /// </summary>
     public class UserModel : AuthResult
     {
         public string Id { get; set; }

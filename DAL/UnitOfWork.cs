@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace DAL
 {
+    /// <summary>
+    /// <see cref="IUnitOfWork"/> implementation class
+    /// </summary
     public class UnitOfWork : IUnitOfWork
     {
         private readonly InternetAuctionContext _context;

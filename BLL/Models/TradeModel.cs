@@ -3,6 +3,9 @@ using NJsonSchema.Annotations;
 
 namespace BLL.Models
 {
+    /// <summary>
+    /// TradeModel
+    /// </summary>
     public class TradeModel
     {
         public int Id { get; set; }

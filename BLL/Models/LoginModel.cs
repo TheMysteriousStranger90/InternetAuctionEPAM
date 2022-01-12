@@ -2,6 +2,9 @@
 
 namespace BLL.Models
 {
+    /// <summary>
+    /// LoginModel
+    /// </summary>
     public class LoginModel
     {
         [Display(Name = "Email")]

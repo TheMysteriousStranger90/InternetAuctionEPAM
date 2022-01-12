@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DAL.Configurations
 {
+    /// <summary>
+    /// LotConfiguration
+    /// </summary>
     public class LotConfiguration : IEntityTypeConfiguration<Lot>
     {
         public void Configure(EntityTypeBuilder<Lot> builder)

@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
+    /// <summary>
+    /// Trade Repository
+    /// </summary>
     public class TradeRepository : ITradeRepository
     {
         private readonly InternetAuctionContext _context;

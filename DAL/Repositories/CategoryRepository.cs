@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
+    /// <summary>
+    /// Category Repository
+    /// </summary>
     public class CategoryRepository : ICategoryRepository
     {
         private readonly InternetAuctionContext _context;

@@ -5,6 +5,9 @@ using DAL.Interfaces;
 
 namespace DAL.Repositories
 {
+    /// <summary>
+    /// Basic Repository
+    /// </summary>
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly InternetAuctionContext _context;

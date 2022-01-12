@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BLL.Models
 {
+    /// <summary>
+    /// CategoryModel
+    /// </summary>
     public class CategoryModel
     {
         public int Id { get; set; }

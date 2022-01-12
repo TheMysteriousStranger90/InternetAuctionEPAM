@@ -11,6 +11,9 @@ using DAL.Interfaces;
 
 namespace BLL.Services
 {
+    /// <summary>
+    /// Trade Service class
+    /// </summary>
     public class TradeService : ITradeService
     {
         private readonly IUnitOfWork _unitOfWork;

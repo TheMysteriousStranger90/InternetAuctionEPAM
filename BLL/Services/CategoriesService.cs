@@ -11,6 +11,9 @@ using DAL.Interfaces;
 
 namespace BLL.Services
 {
+    /// <summary>
+    /// Categories Service class
+    /// </summary>
     public class CategoriesService : ICategoriesService
     {
         private readonly IUnitOfWork _unitOfWork;

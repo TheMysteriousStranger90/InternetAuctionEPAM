@@ -5,6 +5,9 @@ using DAL.Entities;
 
 namespace BLL.Mapping
 {
+    /// <summary>
+    /// Automapper profile class in BLL level
+    /// </summary>
     public class AutomapperProfile : Profile
     {
         public AutomapperProfile()

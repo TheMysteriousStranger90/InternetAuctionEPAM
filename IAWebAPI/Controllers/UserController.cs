@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// User controller
+    /// </summary>
     [Produces("application/json")]
     [Route("api/users/")]
     [ApiController]

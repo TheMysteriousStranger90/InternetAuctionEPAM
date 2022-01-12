@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Entities
 {
+    /// <summary>
+    /// Category entity.
+    /// </summary>
     public class Category
     {
         [Key]

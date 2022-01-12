@@ -5,6 +5,9 @@ using BLL.Models;
 
 namespace BLL.Interfaces
 {
+    /// <summary>
+    /// ILotService
+    /// </summary>
     public interface ILotService : ICrud<LotModel>, IDisposable
     {
         LotModel GetWithDetailsById(int id);

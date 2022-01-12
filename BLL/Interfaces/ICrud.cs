@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
+    /// <summary>
+    /// Basic interface
+    /// </summary>
     public interface ICrud<TModel> where TModel : class
     {
         IEnumerable<TModel> GetAll();

@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// Categories controller
+    /// </summary>
     [Produces("application/json")]
     [Route("api/category/")]
     [ApiController]

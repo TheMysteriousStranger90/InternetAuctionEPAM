@@ -2,6 +2,9 @@
 
 namespace BLL.Models
 {
+    /// <summary>
+    /// SignupModel
+    /// </summary>
     public class SignupModel
     {
         [Required]

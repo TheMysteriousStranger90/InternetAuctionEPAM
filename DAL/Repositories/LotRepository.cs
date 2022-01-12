@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
+    /// <summary>
+    /// Lot Repository
+    /// </summary>
     public class LotRepository : ILotRepository
     {
         private readonly InternetAuctionContext _context;

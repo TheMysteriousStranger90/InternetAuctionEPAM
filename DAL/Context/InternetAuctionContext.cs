@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Context
 {
+    /// <summary>
+    /// Main DB context in the application.
+    /// </summary>
     public class InternetAuctionContext : IdentityDbContext<User>
     {
         public InternetAuctionContext(){}

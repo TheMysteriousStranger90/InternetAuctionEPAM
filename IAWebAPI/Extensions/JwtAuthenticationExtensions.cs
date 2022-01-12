@@ -10,6 +10,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    /// <summary>
+    /// JwtAuthenticationExtensions
+    /// </summary>
     public static class JwtAuthenticationExtensions
     {
         public static IServiceCollection AddJwtBearerAuthentication(this IServiceCollection services, IConfiguration Configuration)

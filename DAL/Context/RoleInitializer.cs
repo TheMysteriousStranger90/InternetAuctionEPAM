@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace DAL.Context
 {
+    /// <summary>
+    /// Initializing data at startup
+    /// </summary>
     public class RoleInitializer
     {
         public static async Task InitializeAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)

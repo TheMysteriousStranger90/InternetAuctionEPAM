@@ -4,6 +4,9 @@ using BLL.Models;
 
 namespace BLL.Interfaces
 {
+    /// <summary>
+    /// ICategoriesService
+    /// </summary>
     public interface ICategoriesService : ICrud<CategoryModel>, IDisposable
     {
         ICollection<CategoryModel> GetAllWithDetails();

@@ -4,6 +4,9 @@ using DAL.Entities;
 
 namespace DAL.Interfaces
 {
+    /// <summary>
+    /// ITradeRepository
+    /// </summary>
     public interface ITradeRepository : IRepository<Trade>
     {
         IQueryable<Trade> FindAllWithDetails();

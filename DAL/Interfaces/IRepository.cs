@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
+    /// <summary>
+    /// IRepository
+    /// </summary>
     public interface IRepository<TEntity> where TEntity : class
     {
         IQueryable<TEntity> FindAll();

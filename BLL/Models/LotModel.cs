@@ -4,6 +4,9 @@ using System.Diagnostics;
 
 namespace BLL.Models
 {
+    /// <summary>
+    /// LotModel
+    /// </summary>
     public class LotModel
     {
         public int Id { get; set; }

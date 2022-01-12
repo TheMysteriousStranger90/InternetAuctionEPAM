@@ -11,6 +11,9 @@ using DAL.Interfaces;
 
 namespace BLL.Services
 {
+    /// <summary>
+    /// Lot Service class
+    /// </summary>
     public class LotService : ILotService
     {
         private readonly IUnitOfWork _unitOfWork;

@@ -11,6 +11,9 @@ using WebAPI.Logs;
 
 namespace WebAPI.Controllers
 {
+    /// <summary>
+    /// Lot controller
+    /// </summary>
     [Produces("application/json")]
     [Route("api/lots/")]
     [ApiController]

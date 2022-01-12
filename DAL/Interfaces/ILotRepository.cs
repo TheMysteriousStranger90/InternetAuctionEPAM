@@ -5,6 +5,9 @@ using DAL.Entities;
 
 namespace DAL.Interfaces
 {
+    /// <summary>
+    /// ILotRepository
+    /// </summary>
     public interface ILotRepository : IRepository<Lot>
     {
         IQueryable<Lot> GetAllWithDetails();

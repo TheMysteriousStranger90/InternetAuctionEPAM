@@ -5,6 +5,9 @@ using BLL.Models;
 
 namespace BLL.Interfaces
 {
+    /// <summary>
+    /// IUserService
+    /// </summary>
     public interface IUserService
     {
         Task AddAsync(UserModel model);

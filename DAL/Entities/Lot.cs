@@ -5,6 +5,9 @@ using NJsonSchema.Annotations;
 
 namespace DAL.Entities
 {
+    /// <summary>
+    /// Lot entity.
+    /// </summary>
     public class Lot
     {
         [Key]

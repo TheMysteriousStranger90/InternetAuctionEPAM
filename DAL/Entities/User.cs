@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace DAL.Entities
 {
+    /// <summary>
+    /// User entity.
+    /// </summary>
     public class User : IdentityUser
     {
         [Required, RegularExpression(@"^[a-zA-Zа-яА-я-_ ]+$")]

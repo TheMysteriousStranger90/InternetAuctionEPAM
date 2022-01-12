@@ -2,6 +2,9 @@
 
 namespace BLL.Configuration
 {
+    /// <summary>
+    /// AuthResult
+    /// </summary>
     public class AuthResult
     {
         public string Token { get; set; }

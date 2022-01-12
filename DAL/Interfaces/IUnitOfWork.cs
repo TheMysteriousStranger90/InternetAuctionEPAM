@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace DAL.Interfaces
 {
+    /// <summary>
+    /// Interface for accessing DB by repositories.
+    /// </summary>
     public interface IUnitOfWork : IDisposable
     {
         ICategoryRepository CategoryRepository { get; }

@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace BLL.Exceptions
 {
+    /// <summary>
+    /// Basic Exception
+    /// </summary>
     [Serializable]
     public class InternetAuctionException : Exception
     {

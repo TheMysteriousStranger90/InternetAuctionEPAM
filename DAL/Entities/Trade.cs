@@ -4,6 +4,9 @@ using NJsonSchema.Annotations;
 
 namespace DAL.Entities
 {
+    /// <summary>
+    /// Trade entity.
+    /// </summary>
     public class Trade
     {
         [Key]

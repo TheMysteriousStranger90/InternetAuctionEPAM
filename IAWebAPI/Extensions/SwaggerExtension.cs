@@ -5,6 +5,9 @@ using Microsoft.OpenApi.Models;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
+    /// <summary>
+    /// SwaggerExtension
+    /// </summary>
     public static class SwaggerExtension
     {
         public static IServiceCollection AddSwaggerSettings(this IServiceCollection services, IConfiguration configuration)
