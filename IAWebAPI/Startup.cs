@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using AutoMapper;
+using BLL.Configuration;
 using BLL.Configure;
 using BLL.Interfaces;
 using BLL.Mapping;
@@ -41,22 +42,18 @@ namespace IAWebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
 
             services.AddDbContext<InternetAuctionContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddIdentity<User, IdentityRole>(opt =>
-            {
-                opt.Password.RequireNonAlphanumeric = false;
-                opt.Password.RequireUppercase = false;
+            services.AddJwtBearerAuthentication(Configuration);
 
-                opt.Lockout.AllowedForNewUsers = true;
-                opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
-                opt.Lockout.MaxFailedAccessAttempts = 3;
-            }).AddEntityFrameworkStores<InternetAuctionContext>().AddDefaultTokenProviders();
+            services.AddControllers();
+
+            services.AddSwaggerSettings(Configuration);
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
@@ -64,26 +61,6 @@ namespace IAWebAPI
             {
                 mc.AddProfile(new AutomapperProfile());
             });
-
-            services.AddAuthentication(opt =>
-                {
-                    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                })
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-
-                        ValidIssuer = AuthOptions.ISSUER,
-                        ValidAudience = AuthOptions.AUDIENCE,
-                        IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey()
-                    };
-                });
 
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
@@ -97,7 +74,6 @@ namespace IAWebAPI
             services.AddTransient<IPrincipal>(provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
 
             services.AddCors();
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "IAWebAPI", Version = "v1"}); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -119,6 +95,7 @@ namespace IAWebAPI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

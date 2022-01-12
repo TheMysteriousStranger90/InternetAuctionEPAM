@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using BLL.Configuration;
 
 namespace BLL.Models
 {
-    public class UserModel
+    public class UserModel : AuthResult
     {
         public string Id { get; set; }
 

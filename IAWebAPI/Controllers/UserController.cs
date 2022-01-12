@@ -8,12 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebAPI.Logs;
 using System.Linq;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace WebAPI.Controllers
 {
     [Produces("application/json")]
     [Route("api/users/")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -26,6 +28,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
+        //[Authorize]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<UserModel>>> GetAll()
         {

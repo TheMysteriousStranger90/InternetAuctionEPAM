@@ -19,9 +19,9 @@ namespace BLL.Interfaces
 
         Task<UserModel> GetUserByIdAsync(string id);
 
-        Task<AuthResponseModel> SignupAsync(SignupModel signup);
+        Task<UserModel> SignupAsync(SignupModel signup);
 
-        Task<AuthResponseModel> LoginAsync(LoginModel login);
+        Task<UserModel> LoginAsync(LoginModel login);
 
         IEnumerable<UserModel> GetUsersRole(string userRole);
 

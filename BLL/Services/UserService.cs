@@ -10,9 +10,11 @@ using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using BLL.Configuration;
 using BLL.Configure;
 using BLL.Models;
 using DAL.Entities;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BLL.Services
@@ -21,12 +23,15 @@ namespace BLL.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly JwtConfig _jwtConfig;
 
 
-        public UserService(IUnitOfWork unitOfWork, IMapper mapper)
+        public UserService(IUnitOfWork unitOfWork, IMapper mapper,
+            IOptionsMonitor<JwtConfig> optionsMonitor)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _jwtConfig = optionsMonitor.CurrentValue;
         }
 
         public async Task AddAsync(UserModel model)
@@ -94,8 +99,9 @@ namespace BLL.Services
             return result;
         }
 
-        public async Task<AuthResponseModel> SignupAsync(SignupModel signup)
+        public async Task<UserModel> SignupAsync(SignupModel signup)
         {
+            /*
             if (_unitOfWork.UserManager.Users.Any(x => x.Email == signup.Email))
                 return new AuthResponseModel
                 {
@@ -126,10 +132,47 @@ namespace BLL.Services
                     Errors = new[] { ex.Message }
                 };
             }
+            */
+
+            var existingUser = await _unitOfWork.UserManager.FindByEmailAsync(signup.Email);
+
+            if (existingUser is not null)
+            {
+                return new UserModel()
+                {
+                    Errors = new List<string>() {
+                        "Email already in use"
+                    },
+                    Success = false
+                };
+            }
+
+            var newUser = new IdentityUser() { Email = signup.Email, UserName = signup.UserName };
+            var isCreated = await _unitOfWork.UserManager.CreateAsync((User) newUser, signup.Password);
+            if (isCreated.Succeeded)
+            {
+                await _unitOfWork.UserManager.AddToRoleAsync((User) newUser, "User");
+                var jwtToken = await GenerateJwtToken((User) newUser);
+
+                return new UserModel()
+                {
+                    Success = true,
+                    Token = jwtToken.ToString()
+                };
+            }
+            else
+            {
+                return new UserModel()
+                {
+                    Errors = isCreated.Errors.Select(x => x.Description).ToList(),
+                    Success = false
+                };
+            }
         }
 
-        public async Task<AuthResponseModel> LoginAsync(LoginModel login)
+        public async Task<UserModel> LoginAsync(LoginModel login)
         {
+            /*
             var user = _unitOfWork.UserManager.Users.SingleOrDefault(x => x.Email == login.Email);
             if (user == null)
                 return new AuthResponseModel
@@ -145,6 +188,41 @@ namespace BLL.Services
                 };
             var result = await GenerateAuthResultAsync(user);
             return result;
+            */
+            var existingUser = await _unitOfWork.UserManager.FindByEmailAsync(login.Email);
+
+            if (existingUser is null)
+            {
+                return new UserModel()
+                {
+                    Errors = new List<string>() {
+                        "Invalid login request"
+                    },
+                    Success = false
+                };
+            }
+
+            var isCorrect = await _unitOfWork.UserManager.CheckPasswordAsync(existingUser, login.Password);
+
+            if (!isCorrect)
+            {
+                return new UserModel()
+                {
+                    Errors = new List<string>() {
+                        "Invalid password for user"
+                    },
+                    Success = false
+                };
+            }
+
+            var jwtToken = await GenerateJwtToken(existingUser);
+
+            return new UserModel()
+            {
+                Success = true,
+                Token = jwtToken.ToString()
+            };
+
         }
 
         public IEnumerable<UserModel> GetUsersRole(string userRole)
@@ -187,6 +265,7 @@ namespace BLL.Services
             await _unitOfWork.SignInManager.SignOutAsync();
         }
 
+        /*
         private async Task<AuthResponseModel> GenerateAuthResultAsync(User user)
         {
             var claims = new List<Claim>
@@ -214,6 +293,45 @@ namespace BLL.Services
                 Success = true,
                 Token = tokenString
             };
+        }
+*/
+
+
+        private async Task<object> GenerateJwtToken(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim("Id", user.Id),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            var roles = await _unitOfWork.UserManager.GetRolesAsync(user);
+            AddRolesToClaims(claims, roles);
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfig.Secret));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.Now.AddDays(1);
+
+            var token = new JwtSecurityToken(
+                null,
+                null,
+                claims,
+                expires: expires,
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private static void AddRolesToClaims(List<Claim> claims, IEnumerable<string> roles)
+        {
+            foreach (var role in roles)
+            {
+                var roleClaim = new Claim(ClaimTypes.Role, role);
+                claims.Add(roleClaim);
+            }
         }
     }
 }

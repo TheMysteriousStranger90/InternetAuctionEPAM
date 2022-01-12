@@ -14,6 +14,7 @@ namespace WebAPI.Controllers
     [Produces("application/json")]
     [Route("api/trade/")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class TradeController : Controller
     {
         private readonly ITradeService _tradeService;

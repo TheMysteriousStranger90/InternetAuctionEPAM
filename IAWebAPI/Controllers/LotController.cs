@@ -14,6 +14,7 @@ namespace WebAPI.Controllers
     [Produces("application/json")]
     [Route("api/lots/")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class LotController : Controller
     {
         private readonly ILotService _lotService;
