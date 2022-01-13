@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using BLL.Configuration;
+using BLL.Configurations;
 using BLL.Models;
 using DAL.Entities;
 using Microsoft.Extensions.Options;

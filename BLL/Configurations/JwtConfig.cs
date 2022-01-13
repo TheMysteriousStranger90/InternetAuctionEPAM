@@ -1,4 +1,4 @@
-﻿namespace BLL.Configuration
+﻿namespace BLL.Configurations
 {
     /// <summary>
     /// For JWT Token

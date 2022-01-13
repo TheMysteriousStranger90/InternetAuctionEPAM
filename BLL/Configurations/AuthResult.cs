@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BLL.Configuration
+namespace BLL.Configurations
 {
     /// <summary>
     /// AuthResult

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using BLL.Configuration;
+using BLL.Configurations;
 
 namespace BLL.Models
 {

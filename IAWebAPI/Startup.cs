@@ -1,6 +1,6 @@
 using System.Security.Principal;
 using AutoMapper;
-using BLL.Configuration;
+using BLL.Configurations;
 using BLL.Interfaces;
 using BLL.Mapping;
 using BLL.Services;

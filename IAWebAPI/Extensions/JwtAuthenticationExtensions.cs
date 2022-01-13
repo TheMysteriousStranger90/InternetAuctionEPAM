@@ -1,5 +1,5 @@
 using System.Text;
-using BLL.Configuration;
+using BLL.Configurations;
 using DAL;
 using DAL.Context;
 using DAL.Entities;
